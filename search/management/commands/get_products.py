@@ -12,7 +12,7 @@ class Command(BaseCommand):
         list_categories = ['chocolates', 'cheeses', 'sodas']
 
         for category in list_categories:
-            url = f'https://world.openfoodfacts.net/api/v2/search?categories_tags_en={category}&fields=product_name,nutriscore_data,categories_tags,nutriscore_data'
+            url = f'https://world.openfoodfacts.net/api/v2/search?categories_tags_en={category}&fields=product_name,nutriscore_data,categories_tags,nutriscore_data,selected_images'
             
             try:
                 response = requests.get(url)
@@ -24,11 +24,14 @@ class Command(BaseCommand):
                 continue
 
             for api_product in liste_API_products:
-                nutri_score=api_product.get("nutriscore_data", {}).get("grade")
-                if nutri_score:
+                nutri_score = api_product.get("nutriscore_data", {}).get("grade")
+                image = api_product.get("selected_images", {}).get("front", {}).get("display", {}).get("fr")
+                
+                if nutri_score and image:
                     product = Product(
-                        name=api_product["product_name"],
+                        name=api_product.get("product_name"),
                         nutri_score=nutri_score,
+                        image=image,
                         )
                     all_products.append(product)
 
