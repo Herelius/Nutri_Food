@@ -14,5 +14,11 @@ def list_products(request):
 def contact(request):
     return render(request, 'search/contact.html', {})
 
+def sign_in(request):
+    return render(request, 'search/sign_in.html', {})
+
+def sign_up(request):
+    return render(request, 'search/sign_up.html', {})
+
 def details(request, product_id):
-    return render(request, 'search/contact.html', {'product_id': product_id})
+    return render(request, 'search/details.html', {'product_id': product_id})

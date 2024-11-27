@@ -23,5 +23,7 @@ urlpatterns = [
     path('home/', include("search.urls")),
     path('list-products/', include("search.urls")),
     path('contact/', include("search.urls")),
+    path('sign-in/', include("search.urls")),
+    path('sign-up/', include("search.urls")),
     path('details/<int:product_id>', include("search.urls")),
 ]
